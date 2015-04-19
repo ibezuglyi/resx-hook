@@ -1,0 +1,29 @@
+#!/bin/sh
+
+echo '===pre-commit-resx5===='
+
+#FileName=diff.diff
+#count=0
+#exec touch "$FileName"
+#exec 3<$1
+#exec 1<"$FileName"
+
+git diff --cached --name-status --diff-filter=ACMR | while read STATUS FILE ; do
+	if [  ${FILE: -5} == ".resx"  ]; then
+		git diff --unified=1 HEAD^^ $FILE
+		#let 'count += 1'
+	fi
+done
+
+
+#diffpacksize=$(du -k --bytes $FileName | cut -f 1)
+
+#exec 1<&3                 # Restore old stdin.
+#exec 3<&-                 # Close temporary fd 3.
+
+#echo "$count files modified"
+#if [ "$diffpacksize" != "$emptyfile" ]; then
+#	echo 'resx.diff'
+#fi
+
+
